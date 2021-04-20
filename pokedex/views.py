@@ -6,7 +6,6 @@ from django.template.defaulttags import register
 # Create your views here.
 def index(request):
     if request.method == "POST":
-        print(request.POST.get("pokemonId"))
         urlPokemon = "https://pokeapi.co/api/v2/pokemon/"+request.POST.get("pokemonId")
     else:
         urlPokemon = "https://pokeapi.co/api/v2/pokemon/1"
