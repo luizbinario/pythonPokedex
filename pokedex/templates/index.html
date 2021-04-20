@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="pokedex">
+        <div class="info-display center">
+            <form name="pokemonKeySend" method="POST" action=".">{% csrf_token %}
+                <input type="text" name="pokemonId" class="id-display" value="{{pokemon.id}}" onKeyUp="pokemonKeyId()"/>
+            </form>
+            <div class="name-display">
+                <b>{{pokemon.name.capitalize}}</b>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="pokemon-display">
+            <div class="pokemon">
+                <img src="{{pokemon.sprites.front_default}}" width="100%" height="100%">
+            </div>
+            <div class="pokemon type">
+                {% for type in pokemon.types %}
+                    <img src="{{types|get_item:type.type.name}}" height="50">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="buttons">
+            <form name="pokemonIdSend" method="POST" action=".">{% csrf_token %}
+                <input type="hidden" name="pokemonId" class="id-display" value="{{pokemon.id}}"/>
+                <div class="button" onClick="previous({{pokemon.id|previousPokemon}})"><< Anterior</div>
+                <div class="button" onClick="next({{pokemon.id|nextPokemon}})">Próximo >></div>
+            </form>
+        </div>
+        <div class="api">
+            API: <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a>
+        </div>
+        <div class="center dev">
+            <a href="http://jigsaw.w3.org/css-validator/check/" target="_blank">
+                <img style="border:0;width:88px;height:31px"
+                    src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+                    alt="CSS válido!" />
+            </a>
+            <a href="#"><img src="https://binario-djangob.s3-sa-east-1.amazonaws.com/python_logo.png" height="30"></a>      
+            <a href="https://github.com/luizbinario/phpPokedex" target="_blank"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" height="20"></a>      
+        </div>
+    </div>
+{% endblock %}
